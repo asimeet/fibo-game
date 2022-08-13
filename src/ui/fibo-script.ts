@@ -4,7 +4,7 @@ interface ClickEvent extends MouseEvent {
   target: HTMLElement;
 }
 
-export function init() {
+export function init(): void {
   const gridContainer: HTMLElement = document.getElementById("grid-container")!;
   gridContainer.innerHTML = "";
 
@@ -25,8 +25,7 @@ export function init() {
   }
 }
 
-export function lightUpCell(cell: HTMLElement) {
-  
+export function lightUpCell(cell: HTMLElement): void {
   /** light up cell with yellow background */
   cell.classList.add("clicked");
 
@@ -40,7 +39,7 @@ export function lightUpCell(cell: HTMLElement) {
   );
 }
 
-export function update(this: HTMLElement, event: MouseEvent) {
+export function update(this: HTMLElement, event: MouseEvent): void {
   const clickEvent: ClickEvent = event as ClickEvent;
   lightUpCell(clickEvent.target);
 
@@ -51,7 +50,7 @@ export function update(this: HTMLElement, event: MouseEvent) {
   for (let currentCursor = 0; currentCursor < 50; currentCursor++) {
     /**increase all cells in row where user clicks by one */
     gridArray[targetRow][currentCursor] += 1;
-   /**increase all cells in column where user clicks by one */
+    /**increase all cells in column where user clicks by one */
     gridArray[currentCursor][targetColumn] += 1;
 
     if (currentCursor == targetColumn) {
@@ -68,13 +67,13 @@ export function update(this: HTMLElement, event: MouseEvent) {
     )!;
     rowCell.innerHTML = `${gridArray[targetRow][currentCursor]}`;
     columnCell.innerHTML = `${gridArray[currentCursor][targetColumn]}`;
-    
+
     /**check if a fibonacci series was formed either horizontally or vertically */
     checkFibonaci(targetRow, targetColumn, currentCursor);
   }
 }
 
-export function isFibonacci(fibonacciSeq: number[]) {
+export function isFibonacci(fibonacciSeq: number[]): boolean {
   if (fibonacciSeq.length !== 5) {
     return false;
   }
@@ -98,7 +97,7 @@ export function checkFibonaci(
   targetRow: number,
   targetColumn: number,
   currentCursor: number
-) {
+): void {
   const rowSeq = gridArray[currentCursor].slice(
     targetColumn - 4,
     targetColumn + 1
@@ -118,21 +117,21 @@ export function checkFibonaci(
   }
 }
 
-export function lightUpRowSeq(row: number, column: number) {
+export function lightUpRowSeq(row: number, column: number): void {
   for (let i = column; i >= column - 4; i--) {
     const rowCell: HTMLElement = document.getElementById(`${row}_${i}`)!;
     rowCell.classList.add("is-fibonacci");
   }
 }
 
-export function lightUpColumnSeq(row: number, column: number) {
+export function lightUpColumnSeq(row: number, column: number): void {
   for (let i = row; i >= row - 4; i--) {
     const rowCell: HTMLElement = document.getElementById(`${i}_${column}`)!;
     rowCell.classList.add("is-fibonacci");
   }
 }
 
-export function resetRowSeq(row: number, column: number) {
+export function resetRowSeq(row: number, column: number): void {
   setTimeout(
     (row: number, column: number) => {
       for (let i = column; i >= column - 4; i--) {
@@ -148,7 +147,7 @@ export function resetRowSeq(row: number, column: number) {
   );
 }
 
-export function resetColumnSeq(row: number, column: number) {
+export function resetColumnSeq(row: number, column: number): void {
   setTimeout(
     (row: number, column: number) => {
       for (let i = row; i >= row - 4; i--) {
